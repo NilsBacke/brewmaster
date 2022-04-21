@@ -11,7 +11,7 @@ import ProfileScreen from "./components/Profile/ProfileScreen";
 function App() {
   return (
     <BrowserRouter>
-      <div className="container h-100">
+      <div>
         <Routes>
           <Route path="/">
             <Route index element={<HomeScreen />} />
