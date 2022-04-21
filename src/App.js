@@ -8,32 +8,43 @@ import SearchScreen from "./components/Search/SearchScreen";
 import BreweryDetailScreen from "./components/BreweryDetail/BreweryDetailScreen";
 import ProfileScreen from "./components/Profile/ProfileScreen";
 import backgroundImage from "./images/beer_background.png";
-import NavBar from "./components/NavBar"
+import NavBar from "./components/NavBar";
+import { combineReducers, createStore } from "redux";
+import breweriesReducer from "./reducers/breweries.reducer.js";
+import { Provider } from "react-redux";
+
+const reducer = combineReducers({
+  breweries: breweriesReducer,
+});
+const store = createStore(reducer);
+
 function App() {
   const bgImage = {
-    backgroundImage:`url(${backgroundImage})`,
-    "height":"100vh",
-    "background-repeat":"repeat-x",
-  }
-  document.body.style = 'background: black';
+    backgroundImage: `url(${backgroundImage})`,
+    height: "100%",
+    "background-repeat": "repeat-x",
+  };
+  document.body.style = "background: black";
   return (
-    <BrowserRouter>
-      <div>
-        <NavBar/>
-        <div style={bgImage} className="d-flex justify-content-center">
-          <Routes>
-            <Route path="/">
-              <Route index element={<HomeScreen />} />
-              <Route path="login" element={<LoginScreen />} />
-              <Route path="search" element={<SearchScreen />} />
-              <Route path="details/:uid" element={<BreweryDetailScreen />} />
-              <Route path="profile" element={<ProfileScreen />} />
-              <Route path="profile/:uid" element={<ProfileScreen />} />
-            </Route>
-          </Routes>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div style={{ height: "100%" }}>
+          <NavBar />
+          <div style={bgImage} className="d-flex justify-content-center">
+            <Routes>
+              <Route path="/">
+                <Route index element={<HomeScreen />} />
+                <Route path="login" element={<LoginScreen />} />
+                <Route path="search" element={<SearchScreen />} />
+                <Route path="details/:uid" element={<BreweryDetailScreen />} />
+                <Route path="profile" element={<ProfileScreen />} />
+                <Route path="profile/:uid" element={<ProfileScreen />} />
+              </Route>
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
