@@ -14,10 +14,8 @@ export default function LoginScreen() {
   const login = () =>
     service
       .login({
-        user: {
-          username: loginUsername,
-          password: loginPassword,
-        },
+        username: loginUsername,
+        password: loginPassword,
       })
       .then(() => navigate("/profile"))
       .catch((e) => alert(e));
@@ -34,7 +32,10 @@ export default function LoginScreen() {
       .catch((e) => alert(e));
 
   return (
-    <div className=" d-flex flex-column mt-3 bg-secondary rounded" style={{"width":"80%","height":"60vh"}}>
+    <div
+      className=" d-flex flex-column mt-3 bg-secondary rounded"
+      style={{ width: "80%", height: "60vh" }}
+    >
       <div className="d-flex flex-row flex-grow-1 align-items-center">
         <div className="form-group flex-grow-1  mx-3">
           <div className="fw-bold text-center h3">Login</div>

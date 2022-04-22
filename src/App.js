@@ -11,10 +11,12 @@ import backgroundImage from "./images/beer_background.png";
 import NavBar from "./components/NavBar";
 import { combineReducers, createStore } from "redux";
 import breweriesReducer from "./reducers/breweries.reducer.js";
+import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
 
 const reducer = combineReducers({
   breweries: breweriesReducer,
+  profile: profileReducer,
 });
 const store = createStore(reducer);
 
