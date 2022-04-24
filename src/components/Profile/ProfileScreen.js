@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useProfile } from "../../hooks/useProfile";
+import { getBrewery } from "../../services/breweries-service";
 import { getUser } from "../../services/user-service.js";
+import BreweryCard from "../BreweryCard";
 
 const ProfileScreen = () => {
   const profile = useProfile();
   const { uid } = useParams();
 
   const [user, setUser] = useState(null);
+  const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
     if (uid) {
@@ -19,6 +22,16 @@ const ProfileScreen = () => {
 
   const realUser = user ?? profile;
 
+  useEffect(() => {
+    if (realUser && realUser.bookmarkedBreweries) {
+      for (const b of realUser.bookmarkedBreweries) {
+        getBrewery(b).then((res) => {
+          setBookmarks([...bookmarks, res]);
+        });
+      }
+    }
+  }, [realUser]);
+
   return (
     <div
       className="mt-3 bg-secondary rounded"
@@ -29,6 +42,9 @@ const ProfileScreen = () => {
           <h1>{realUser.name}</h1>
           <h5>{realUser.username}</h5>
           <h4 className="mt-4">Bookmarked Breweries:</h4>
+          {bookmarks.map((b, i) => (
+            <BreweryCard brewery={b} key={i} />
+          ))}
           <h4 className="mt-4">Following:</h4>
         </div>
       ) : (
