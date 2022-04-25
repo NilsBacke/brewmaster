@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { searchBreweries, getBrewery } from "../../services/breweries-service";
 import { useProfile } from "../../hooks/useProfile";
 import BreweryCard from "../BreweryCard.js";
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
-  const breweries = useSelector((state) => state.breweries);
+  const [breweries, setBreweries] = useState([]);
   const profile = useProfile();
   const [bookmarks, setBookmarks] = useState([]);
 
   useEffect(() => {
-    searchBreweries(dispatch, "");
-  }, [dispatch]);
+    searchBreweries("").then((r) => setBreweries(r));
+  }, []);
 
   useEffect(() => {
     if (profile && profile.bookmarkedBreweries) {

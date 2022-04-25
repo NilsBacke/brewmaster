@@ -1,16 +1,18 @@
 import axios from "axios";
-const API = `http://localhost:4000/api`;
+import { BASE_URL } from "./api.js";
 
 export const searchBreweries = async (search) => {
   const response = await axios.get(
-    !!search ? API + `/breweries?search=${search}` : API + `/breweries`
+    !!search
+      ? BASE_URL + `/breweries?search=${search}`
+      : BASE_URL + `/breweries`
   );
   const breweries = response.data;
   return breweries;
 };
 
 export const getBrewery = async (id) => {
-  const response = await axios.get(API + `/breweries/${id}`);
+  const response = await axios.get(BASE_URL + `/breweries/${id}`);
   const brewery = response.data;
   return brewery;
 };
