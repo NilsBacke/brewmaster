@@ -17,6 +17,7 @@ const ProfileScreen = () => {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [usersFollowing, setUsersFollowing] = useState([]);
 
@@ -32,6 +33,16 @@ const ProfileScreen = () => {
   const isMe = !uid;
   const isFollowingUser =
     !!uid && !!profile && !!user && profile.following.includes(user._id);
+
+  const [name, setName] = useState(realUser?.name ?? "");
+  const [email, setEmail] = useState(realUser?.email ?? "");
+
+  useEffect(() => {
+    if (realUser) {
+      realUser.name && setName(realUser.name);
+      realUser.email && setEmail(realUser.email);
+    }
+  }, [realUser]);
 
   useEffect(() => {
     if (realUser && realUser.bookmarkedBreweries) {
@@ -75,6 +86,22 @@ const ProfileScreen = () => {
     await updateUser(newProfile);
   };
 
+  const onSavePress = async () => {
+    setEditMode(false);
+
+    const newProfile = {
+      ...profile,
+      name,
+      email,
+    };
+    dispatch({
+      type: GET_PROFILE,
+      profile: newProfile,
+    });
+
+    await updateUser(newProfile);
+  };
+
   return (
     <div
       className="mt-3 bg-secondary rounded"
@@ -82,9 +109,26 @@ const ProfileScreen = () => {
     >
       {!!realUser ? (
         <div className="m-3">
-          <h1>{realUser.name}</h1>
+          {editMode ? (
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+          ) : (
+            <h1>{realUser.name}</h1>
+          )}
           <h5>{realUser.username}</h5>
-          {isMe && <h6>{realUser.email}</h6>}
+          {isMe &&
+            (editMode ? (
+              <input value={email} onChange={(e) => setEmail(e.target.value)} />
+            ) : (
+              <h6>{realUser.email}</h6>
+            ))}
+          {isMe && (
+            <div style={{ maxWidth: 120 }}>
+              <Button
+                title={editMode ? "Save" : "Edit"}
+                onClick={editMode ? onSavePress : () => setEditMode(true)}
+              />
+            </div>
+          )}
           {!isMe && (
             <div style={{ maxWidth: 120 }}>
               <Button
