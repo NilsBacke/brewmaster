@@ -16,3 +16,9 @@ export const getBrewery = async (id) => {
   const brewery = response.data;
   return brewery;
 };
+
+export const createBrewery = async (brewery) => {
+  const response = await axios.post(BASE_URL + `/breweries`, brewery);
+  const b = response.data;
+  return b;
+};

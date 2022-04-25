@@ -13,7 +13,7 @@ export default function BreweryCard({ brewery }) {
   return (
     <Container
       className="mx-2 my-3 p-2 border rounded"
-      onClick={() => navigate(`/details/${brewery.id}`)}
+      onClick={() => navigate(`/details/${brewery.id ?? brewery._id}`)}
     >
       <div className="h4">{brewery.name}</div>
       <div style={{ whiteSpace: "pre-wrap" }}>

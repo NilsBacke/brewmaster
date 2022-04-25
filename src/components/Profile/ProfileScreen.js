@@ -19,6 +19,7 @@ const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
+  const [ownedBrewery, setOwnedBrewery] = useState(null);
   const [usersFollowing, setUsersFollowing] = useState([]);
 
   useEffect(() => {
@@ -43,6 +44,12 @@ const ProfileScreen = () => {
       realUser.email && setEmail(realUser.email);
     }
   }, [realUser]);
+
+  useEffect(() => {
+    if (realUser?.ownedBreweryId) {
+      getBrewery(realUser.ownedBreweryId).then((r) => setOwnedBrewery(r));
+    }
+  }, [realUser?.ownedBreweryId]);
 
   useEffect(() => {
     if (realUser && realUser.bookmarkedBreweries) {
@@ -109,11 +116,21 @@ const ProfileScreen = () => {
     >
       {!!realUser ? (
         <div className="m-3">
-          {editMode ? (
-            <input value={name} onChange={(e) => setName(e.target.value)} />
-          ) : (
-            <h1>{realUser.name}</h1>
-          )}
+          <div className="d-flex">
+            {editMode ? (
+              <input value={name} onChange={(e) => setName(e.target.value)} />
+            ) : (
+              <div className="h1 d-inline">{realUser.name}</div>
+            )}
+            {realUser.type === "BreweryOwner" && (
+              <div
+                className="fw-bold p-1 ms-3 mt-1 d-inline"
+                style={{ color: "orange", fontSize: 24 }}
+              >
+                Brewery Owner
+              </div>
+            )}
+          </div>
           <h5>{realUser.username}</h5>
           {isMe &&
             (editMode ? (
@@ -136,6 +153,22 @@ const ProfileScreen = () => {
                 onClick={onFollowPress}
               />
             </div>
+          )}
+          {isMe &&
+            realUser.type === "BreweryOwner" &&
+            !realUser.ownedBreweryId && (
+              <div style={{ maxWidth: 180 }} className="mt-4">
+                <Button
+                  title="Create Brewery"
+                  onClick={() => navigate(`/create-brewery`)}
+                />
+              </div>
+            )}
+          {ownedBrewery && (
+            <>
+              <h4 className="mt-4">My Brewery:</h4>
+              <BreweryCard brewery={ownedBrewery} />
+            </>
           )}
           <h4 className="mt-4">Bookmarked Breweries:</h4>
           {bookmarks.map((b, i) => (

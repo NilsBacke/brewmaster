@@ -13,6 +13,7 @@ import { combineReducers, createStore } from "redux";
 import breweriesReducer from "./reducers/breweries.reducer.js";
 import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
+import CreateBrewery from "./components/CreateBrewery.js/CreateBrewery";
 
 const reducer = combineReducers({
   breweries: breweriesReducer,
@@ -41,6 +42,7 @@ function App() {
                 <Route path="details/:uid" element={<BreweryDetailScreen />} />
                 <Route path="profile" element={<ProfileScreen />} />
                 <Route path="profile/:uid" element={<ProfileScreen />} />
+                <Route path="create-brewery" element={<CreateBrewery />} />
               </Route>
             </Routes>
           </div>
