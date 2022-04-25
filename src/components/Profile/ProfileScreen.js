@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useProfile } from "../../hooks/useProfile";
 import { getBrewery } from "../../services/breweries-service";
 import { getUser } from "../../services/user-service.js";
-import BreweryCard from "../BreweryCard";
+import BreweryCard from "../BreweryCard.js";
+import Button from "../Button.js";
+import { GET_PROFILE } from "../../actions/profile.actions.js";
+import { updateUser } from "../../services/user-service.js";
+import { useDispatch } from "react-redux";
+import UserCard from "../UserCard";
 
 const ProfileScreen = () => {
   const profile = useProfile();
   const { uid } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState(null);
   const [bookmarks, setBookmarks] = useState([]);
+  const [usersFollowing, setUsersFollowing] = useState([]);
 
   useEffect(() => {
     if (uid) {
@@ -20,17 +28,52 @@ const ProfileScreen = () => {
     }
   }, [uid]);
 
-  const realUser = user ?? profile;
+  const realUser = uid ? user : profile;
+  const isMe = !uid;
+  const isFollowingUser =
+    !!uid && !!profile && !!user && profile.following.includes(user._id);
 
   useEffect(() => {
     if (realUser && realUser.bookmarkedBreweries) {
+      const promises = [];
       for (const b of realUser.bookmarkedBreweries) {
-        getBrewery(b).then((res) => {
-          setBookmarks([...bookmarks, res]);
-        });
+        promises.push(getBrewery(b));
       }
+      Promise.all(promises).then((books) => setBookmarks(books));
+    }
+
+    if (realUser && realUser.following) {
+      const promises = [];
+      for (const b of realUser.following) {
+        promises.push(getUser(b));
+      }
+      Promise.all(promises).then((us) => setUsersFollowing(us));
     }
   }, [realUser]);
+
+  const onFollowPress = async () => {
+    if (!profile) {
+      navigate(`/login`);
+      return;
+    }
+
+    const newFollowing = [...profile.following];
+    if (isFollowingUser) {
+      newFollowing.splice(newFollowing.indexOf(user._id), 1);
+    } else {
+      newFollowing.push(user._id);
+    }
+    const newProfile = {
+      ...profile,
+      following: newFollowing,
+    };
+    dispatch({
+      type: GET_PROFILE,
+      profile: newProfile,
+    });
+
+    await updateUser(newProfile);
+  };
 
   return (
     <div
@@ -41,11 +84,23 @@ const ProfileScreen = () => {
         <div className="m-3">
           <h1>{realUser.name}</h1>
           <h5>{realUser.username}</h5>
+          {isMe && <h6>{realUser.email}</h6>}
+          {!isMe && (
+            <div style={{ maxWidth: 120 }}>
+              <Button
+                title={isFollowingUser ? "Unfollow" : "Follow"}
+                onClick={onFollowPress}
+              />
+            </div>
+          )}
           <h4 className="mt-4">Bookmarked Breweries:</h4>
           {bookmarks.map((b, i) => (
             <BreweryCard brewery={b} key={i} />
           ))}
           <h4 className="mt-4">Following:</h4>
+          {usersFollowing.map((u, i) => (
+            <UserCard user={u} key={i} />
+          ))}
         </div>
       ) : (
         <div className="m-3 d-flex flex-column align-items-center">

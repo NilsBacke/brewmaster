@@ -1,5 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchBreweries, getBrewery } from "../../services/breweries-service";
+import { useProfile } from "../../hooks/useProfile";
+import BreweryCard from "../BreweryCard.js";
+
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const breweries = useSelector((state) => state.breweries);
+  const profile = useProfile();
+  const [bookmarks, setBookmarks] = useState([]);
+
+  useEffect(() => {
+    searchBreweries(dispatch, "");
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (profile && profile.bookmarkedBreweries) {
+      for (const b of profile.bookmarkedBreweries) {
+        getBrewery(b).then((res) => {
+          setBookmarks([...bookmarks, res]);
+        });
+      }
+    }
+  }, [profile]);
+
+  const loggedIn = !!profile;
+
+  const list = loggedIn ? bookmarks : breweries;
+
   return (
     <div
       className="mt-3 bg-secondary rounded"
@@ -29,6 +57,12 @@ const HomeScreen = () => {
           Are you a brewery owner who's brewery isn't showing up? Create an
           account today to list your brewery to the BrewMaster community!{" "}
         </p>
+      </div>
+      <div className="container">
+        {loggedIn ? <h1>Your Bookmarks</h1> : <h1>Explore Breweries</h1>}
+        {list.map((b, i) => (
+          <BreweryCard brewery={b} key={i} />
+        ))}
       </div>
     </div>
   );

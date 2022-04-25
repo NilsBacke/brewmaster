@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GET_PROFILE } from "../../actions/profile.actions.js";
 import { useProfile } from "../../hooks/useProfile.js";
@@ -20,6 +20,7 @@ export default function BreweryDetailScreen() {
   const [bookmarkedBy, setBookmarkedBy] = useState([]);
   const profile = useProfile();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBrewery(uid).then((res) => {
@@ -36,6 +37,11 @@ export default function BreweryDetailScreen() {
     profile.bookmarkedBreweries.includes(uid);
 
   const onClickBookmark = async () => {
+    if (!profile) {
+      navigate(`/login`);
+      return;
+    }
+
     const newBookmarks = [...(profile.bookmarkedBreweries ?? [])];
     const newBookmarkedBy = [...bookmarkedBy];
     if (bookmarked) {
@@ -70,18 +76,16 @@ export default function BreweryDetailScreen() {
         <>
           <div className="h4">
             {brewery.name}{" "}
-            {!!profile && (
-              <BookmarkContainer
-                className="rounded ms-3"
-                onClick={onClickBookmark}
-              >
-                {bookmarked ? (
-                  <i className="fa-solid fa-bookmark"></i>
-                ) : (
-                  <i className="fa-regular fa-bookmark"></i>
-                )}
-              </BookmarkContainer>
-            )}
+            <BookmarkContainer
+              className="rounded ms-3"
+              onClick={onClickBookmark}
+            >
+              {bookmarked ? (
+                <i className="fa-solid fa-bookmark"></i>
+              ) : (
+                <i className="fa-regular fa-bookmark"></i>
+              )}
+            </BookmarkContainer>
           </div>
           <div style={{ whiteSpace: "pre-wrap" }}>
             {brewery.street}
@@ -97,6 +101,7 @@ export default function BreweryDetailScreen() {
             {brewery.website_url}
           </a>
           <div className="h5 mt-3">Bookmarked By:</div>
+          {bookmarkedBy.length === 0 && <div>No one yet!</div>}
           {bookmarkedBy.map((u, i) => (
             <UserCard user={u} key={i} />
           ))}

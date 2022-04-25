@@ -21,11 +21,11 @@ export default function UserCard({ user }) {
   const profile = useProfile();
 
   if (user._id === profile._id) {
-    return <Container to="profile">You</Container>;
+    return <Container to="/profile">You</Container>;
   }
 
   return (
-    <Container to={`profile/${user._id}`}>
+    <Container to={`/profile/${user.username}`}>
       {user.name}
       <SubText>{user.username}</SubText>
     </Container>
