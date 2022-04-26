@@ -112,7 +112,7 @@ const ProfileScreen = () => {
   return (
     <div
       className="mt-3 bg-secondary rounded"
-      style={{ width: "80%", height: "60vh", color: "white" }}
+      style={{ width: "80%", color: "white" }}
     >
       {!!realUser ? (
         <div className="m-3">

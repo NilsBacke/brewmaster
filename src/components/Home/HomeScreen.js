@@ -29,7 +29,7 @@ const HomeScreen = () => {
   return (
     <div
       className="mt-3 bg-secondary rounded"
-      style={{ width: "80%", height: "60vh", color: "white" }}
+      style={{ width: "80%", height: "auto", color: "white"}}
     >
       <div className="container justify-content-center">
         <h1>Welcome to BrewMaster</h1>

@@ -39,11 +39,11 @@ export default function LoginScreen() {
 
   return (
     <div
-      className=" d-flex flex-column mt-3 bg-secondary rounded"
-      style={{ width: "80%", height: "60vh" }}
+      className=" mt-3 bg-secondary rounded row"
+      style={{ width: "80%", height: "auto" }}
     >
-      <div className="d-flex flex-row flex-grow-1 align-items-center">
-        <div className="form-group flex-grow-1  mx-3">
+      <div className="align-items-center col-6">
+        <div className="mx-3">
           <div className="fw-bold text-center h3">Login</div>
           <label htmlFor="loginUsername">Username</label>
           <input
@@ -68,7 +68,9 @@ export default function LoginScreen() {
             disabled={logInDisabled}
           />
         </div>
-        <div className="form-group flex-grow-1 mx-3">
+      </div>
+      <div className="align-items-center col-6 mb-3">
+        <div className="mx-3">
           <div className="fw-bold text-center h3">Sign Up</div>
           <label htmlFor="signUpName">Full Name</label>
           <input
@@ -108,7 +110,7 @@ export default function LoginScreen() {
             className="mt-3"
             disabled={signUpDisabled}
           />
-          <div className="text-muted text-center mt-3">
+          <div className="text-muted text-center mt-1">
             Own a brewery? Click this button!
           </div>
           <Button

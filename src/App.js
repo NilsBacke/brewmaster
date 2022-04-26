@@ -14,7 +14,7 @@ import breweriesReducer from "./reducers/breweries.reducer.js";
 import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
 import CreateBrewery from "./components/CreateBrewery.js/CreateBrewery";
-
+import Maps from "./components/Map/Maps.js"
 const reducer = combineReducers({
   breweries: breweriesReducer,
   profile: profileReducer,
@@ -25,15 +25,15 @@ function App() {
   const bgImage = {
     backgroundImage: `url(${backgroundImage})`,
     height: "100%",
-    "background-repeat": "repeat-x",
+    "background-repeat": "repeat-x"
   };
   document.body.style = "background: black";
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div style={{ height: "100%" }}>
-          <NavBar />
-          <div style={bgImage} className="d-flex justify-content-center">
+        <NavBar />
+        <div style={bgImage}>
+          <div style={{ height: "auto"}} className="d-flex justify-content-center">
             <Routes>
               <Route path="/">
                 <Route index element={<HomeScreen />} />
@@ -43,6 +43,7 @@ function App() {
                 <Route path="profile" element={<ProfileScreen />} />
                 <Route path="profile/:uid" element={<ProfileScreen />} />
                 <Route path="create-brewery" element={<CreateBrewery />} />
+                <Route path="maptest" element={<Maps />} />
               </Route>
             </Routes>
           </div>
