@@ -14,11 +14,11 @@ const HomeScreen = () => {
 
   useEffect(() => {
     if (profile && profile.bookmarkedBreweries) {
+      const promises = [];
       for (const b of profile.bookmarkedBreweries) {
-        getBrewery(b).then((res) => {
-          setBookmarks([...bookmarks, res]);
-        });
+        promises.push(getBrewery(b));
       }
+      Promise.all(promises).then((books) => setBookmarks(books));
     }
   }, [profile]);
 
@@ -29,7 +29,7 @@ const HomeScreen = () => {
   return (
     <div
       className="mt-3 bg-secondary rounded"
-      style={{ width: "80%", height: "auto", color: "white"}}
+      style={{ width: "80%", height: "auto", color: "white" }}
     >
       <div className="container justify-content-center">
         <h1>Welcome to BrewMaster</h1>
