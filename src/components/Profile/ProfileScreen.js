@@ -118,17 +118,19 @@ const ProfileScreen = () => {
   }
   const lgStyle={
     'width':'80%',
-    'color':'white'
+    'color':'white',
+    "margin-top":'70px'
   }
   const smStyle={
     'width':'100%',
-    'color':'white'
+    'color':'white',
+    "margin-top":'70px'
   }
   const style = (size > 768)? lgStyle :smStyle;
 
   return (
     <div
-      className="mt-3 bg-secondary rounded"
+      className=" bg-secondary rounded"
       style={style}
     >
       {!!realUser ? (

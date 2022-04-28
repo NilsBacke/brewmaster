@@ -37,7 +37,8 @@ const HomeScreen = () => {
     const lgStyle={
       'width':'80%',
       'color':'white',
-      height: "auto"
+      height: "auto",
+      "margin-top": '70px'
     }
     const smStyle={
       'width':'100%',
@@ -48,7 +49,7 @@ const HomeScreen = () => {
 
   return (
     <div
-      className="mt-3 bg-secondary rounded"
+      className=" bg-secondary rounded"
       style={style}
     >
       <div className="container justify-content-center">

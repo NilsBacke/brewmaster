@@ -26,7 +26,6 @@ const  Maps = ({uid}) => {
      <>
      {!!hasPos && (
           <GoogleMap
-            googleMapsApiKey='AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE'
             mapContainerStyle={mapStyles}
             zoom={15}
             center={pos}>

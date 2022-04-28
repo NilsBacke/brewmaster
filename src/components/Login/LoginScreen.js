@@ -39,14 +39,16 @@ export default function LoginScreen() {
 
   const lgStyle ={
    'width': "80%",
-   'height': "auto" }
+   'height': "auto",
+   "margin-top":'70px' }
    const smStyle ={
     'width': "100%",
-    'height': "auto" }
+    'height': "auto",
+    "margin-top":'70px' }
   return (
     <>
       <div
-        className=" mt-3 bg-secondary rounded  d-none d-md-block"
+        className=" bg-secondary rounded  d-none d-md-block"
         style={lgStyle}
       >
         <div className="row">

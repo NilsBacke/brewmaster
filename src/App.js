@@ -15,6 +15,7 @@ import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
 import CreateBrewery from "./components/CreateBrewery.js/CreateBrewery";
 import Maps from "./components/Map/Maps.js"
+import { LoadScript } from '@react-google-maps/api';
 
 
 const reducer = combineReducers({
@@ -32,24 +33,27 @@ function App() {
   document.body.style = "background: black";
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <NavBar />
-        <div style={bgImage}>
-          <div className="d-flex justify-content-center">
-            <Routes>
-              <Route path="/">
-                <Route index element={<HomeScreen />} />
-                <Route path="login" element={<LoginScreen />} />
-                <Route path="search" element={<SearchScreen />} />
-                <Route path="details/:uid" element={<BreweryDetailScreen />} />
-                <Route path="profile" element={<ProfileScreen />} />
-                <Route path="profile/:uid" element={<ProfileScreen />} />
-                <Route path="create-brewery" element={<CreateBrewery />} />
-              </Route>
-            </Routes>
+      <LoadScript
+        googleMapsApiKey='AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE'>
+        <BrowserRouter>
+          <NavBar />
+          <div style={bgImage}>
+            <div className="d-flex justify-content-center">
+              <Routes>
+                <Route path="/">
+                  <Route index element={<HomeScreen />} />
+                  <Route path="login" element={<LoginScreen />} />
+                  <Route path="search" element={<SearchScreen />} />
+                  <Route path="details/:uid" element={<BreweryDetailScreen />} />
+                  <Route path="profile" element={<ProfileScreen />} />
+                  <Route path="profile/:uid" element={<ProfileScreen />} />
+                  <Route path="create-brewery" element={<CreateBrewery />} />
+                </Route>
+              </Routes>
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </LoadScript>
     </Provider>
   );
 }

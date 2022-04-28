@@ -11,7 +11,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const inlineBlock = {
-    display: "inline-block",
+    display: "inline-block"
   };
 
   const onClickLogout = async () => {
@@ -21,8 +21,14 @@ const NavBar = () => {
     }
   };
 
+  const style = {
+    "height":"60px",
+    "width":'100%',
+    "position":'absolute'
+  }
+
   return (
-    <div className="navbar navbar-light bg-secondary navbar-fixed-top" style={{"height":"60px"}}>
+    <div className="navbar navbar-light bg-secondary navbar-fixed-top" style={style}>
       <Link to="" className="navbar-brand ms-3">
         BrewMaster
       </Link>
