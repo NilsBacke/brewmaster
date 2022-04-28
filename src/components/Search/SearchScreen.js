@@ -53,10 +53,10 @@ export default function SearchScreen() {
       style={style}
     >
       <h1 className="mb-3">Search Breweries</h1>
-      <form class="form-inline mx-2">
+      <div class="form-inline mx-2">
         <input className='form-control mr-sm-2' placeholder="search breweries" style={{"width":'80%','display':'inline'}} value={search} onChange={(e) => setSearch(e.target.value)} />
-        <button className='mx-1 btn btn-small btn-light my-2 my-sm-0' style={{'display':'inline'}} onClick={onSearchPress}>Search</button>
-      </form>
+        <button className='mx-1 btn btn-light my-2 my-sm-0'  onClick={onSearchPress}>Search</button>
+      </div>
       {breweries.map((b, i) => (
         <BreweryCard brewery={b} key={i} />
       ))}
