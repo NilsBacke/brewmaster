@@ -133,7 +133,7 @@ export default function LoginScreen() {
         </div>
       </div>
       <div
-        className=" mt-3 bg-secondary rounded  d-block d-md-none"
+        className=" bg-secondary rounded  d-block d-md-none"
         style={smStyle}
       >
         <div className="align-items-center ">
