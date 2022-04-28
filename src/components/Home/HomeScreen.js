@@ -43,7 +43,8 @@ const HomeScreen = () => {
     const smStyle={
       'width':'100%',
       'color':'white',
-      height: "auto"
+      height: "auto",
+      "margin-top": '70px'
     }
     const style = (size > 768)? lgStyle :smStyle;
 
