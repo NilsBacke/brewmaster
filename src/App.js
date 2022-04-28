@@ -45,7 +45,6 @@ function App() {
                 <Route path="profile" element={<ProfileScreen />} />
                 <Route path="profile/:uid" element={<ProfileScreen />} />
                 <Route path="create-brewery" element={<CreateBrewery />} />
-                <Route path="maptest" element={<Maps />} />
               </Route>
             </Routes>
           </div>
