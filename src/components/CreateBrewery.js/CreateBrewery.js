@@ -16,12 +16,22 @@ export default function CreateBrewery() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
+  const [size, setSize] = useState(window.innerWidth);
+
 
   useEffect(() => {
     if (profile && profile.type !== "BreweryOwner") {
       navigate("/profile");
     }
+    window.addEventListener("resize", handleResize, false);
+
   }, [profile]);
+
+  const handleResize = () => {
+    setSize(
+      window.innerWidth
+    );
+  }
 
   const disabled = !name || !street || !city || !state || !websiteUrl;
 
@@ -49,10 +59,19 @@ export default function CreateBrewery() {
     navigate("/profile");
   };
 
+  const lgStyle={
+    'width':'80%',
+    'color':'white'
+  }
+  const smStyle={
+    'width':'100%',
+    'color':'white'
+  }
+  const style = (size > 768)? lgStyle :smStyle;
   return (
     <div
       className="mt-3 bg-secondary rounded p-4"
-      style={{ width: "80%", height: "60vh", color: "white" }}
+      style={style}
     >
       <h1>New Brewery</h1>
       <label htmlFor="name">Name</label>

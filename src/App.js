@@ -15,6 +15,8 @@ import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
 import CreateBrewery from "./components/CreateBrewery.js/CreateBrewery";
 import Maps from "./components/Map/Maps.js"
+
+
 const reducer = combineReducers({
   breweries: breweriesReducer,
   profile: profileReducer,

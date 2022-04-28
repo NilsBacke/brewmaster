@@ -7,7 +7,6 @@ const  Maps = ({uid}) => {
   const [brewery, setBrewery] = useState(undefined);
   const [pos, setPos] = useState({'lat': null, 'lng':null})
   const [hasPos, setHasPos] = useState(false)
-  console.log("brewery: " + brewery)
 
   useEffect(() => {
       getBrewery(uid).then((res) => {

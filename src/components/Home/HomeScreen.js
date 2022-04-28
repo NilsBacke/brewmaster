@@ -5,6 +5,8 @@ import BreweryCard from "../BreweryCard.js";
 
 const HomeScreen = () => {
   const [breweries, setBreweries] = useState([]);
+  const [size, setSize] = useState(window.innerWidth);
+
   const profile = useProfile();
   const [bookmarks, setBookmarks] = useState([]);
 
@@ -12,6 +14,11 @@ const HomeScreen = () => {
     searchBreweries("").then((r) => setBreweries(r));
   }, []);
 
+  const handleResize = () => {
+    setSize(
+      window.innerWidth
+    );
+  }
   useEffect(() => {
     if (profile && profile.bookmarkedBreweries) {
       const promises = [];
@@ -20,16 +27,29 @@ const HomeScreen = () => {
       }
       Promise.all(promises).then((books) => setBookmarks(books));
     }
+    window.addEventListener("resize", handleResize, false);
   }, [profile]);
 
   const loggedIn = !!profile;
 
   const list = loggedIn ? bookmarks : breweries;
 
+    const lgStyle={
+      'width':'80%',
+      'color':'white',
+      height: "auto"
+    }
+    const smStyle={
+      'width':'100%',
+      'color':'white',
+      height: "auto"
+    }
+    const style = (size > 768)? lgStyle :smStyle;
+
   return (
     <div
       className="mt-3 bg-secondary rounded"
-      style={{ width: "80%", height: "auto", color: "white" }}
+      style={style}
     >
       <div className="container justify-content-center">
         <h1>Welcome to BrewMaster</h1>

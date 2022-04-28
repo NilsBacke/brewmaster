@@ -20,6 +20,7 @@ const ProfileScreen = () => {
   const [editMode, setEditMode] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [ownedBrewery, setOwnedBrewery] = useState(null);
+  const [size, setSize] = useState(window.innerWidth);
   const [usersFollowing, setUsersFollowing] = useState([]);
 
   useEffect(() => {
@@ -28,6 +29,8 @@ const ProfileScreen = () => {
         setUser(user);
       });
     }
+    window.addEventListener("resize", handleResize, false);
+
   }, [uid]);
 
   const realUser = uid ? user : profile;
@@ -108,11 +111,25 @@ const ProfileScreen = () => {
 
     await updateUser(newProfile);
   };
+  const handleResize = () => {
+    setSize(
+      window.innerWidth
+    );
+  }
+  const lgStyle={
+    'width':'80%',
+    'color':'white'
+  }
+  const smStyle={
+    'width':'100%',
+    'color':'white'
+  }
+  const style = (size > 768)? lgStyle :smStyle;
 
   return (
     <div
       className="mt-3 bg-secondary rounded"
-      style={{ width: "80%", color: "white" }}
+      style={style}
     >
       {!!realUser ? (
         <div className="m-3">

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useProfile } from "../../hooks/useProfile.js";
 import { logout } from "../../services/auth-service.js";
 import { LOGOUT } from "../../actions/profile.actions.js";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const NavBar = () => {
   const profile = useProfile();
@@ -26,35 +27,57 @@ const NavBar = () => {
         BrewMaster
       </Link>
       <div className="navbar-nav " style={inlineBlock}>
-        <div style={inlineBlock} className="nav-item mx-3">
-          <Link className="nav-link" to="profile">
-            {" "}
-            Profile
-          </Link>
-        </div>
-        <div style={inlineBlock} className="nav-item mx-3">
-          <Link className="nav-link" to="search">
-            {" "}
-            Search Breweries
-          </Link>
-        </div>
-        <div style={inlineBlock} className="nav-item mx-3">
-          <Link className="nav-link" to="login" onClick={onClickLogout}>
-            {" "}
-            {!!profile ? "Logout" : "Login / Sign Up"}
-          </Link>
-        </div>
-        <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+        <div className="d-none d-md-block">
+          <div style={inlineBlock} className="nav-item mx-3">
+            <Link className="nav-link" to="profile">
+              {" "}
+              Profile
+            </Link>
+          </div>
+          <div style={inlineBlock} className="nav-item mx-3">
+            <Link className="nav-link" to="search">
+              {" "}
+              Search Breweries
+            </Link>
+          </div>
+          <div style={inlineBlock} className="nav-item mx-3">
+            <Link className="nav-link" to="login" onClick={onClickLogout}>
+              {" "}
+              {!!profile ? "Logout" : "Login / Sign Up"}
+            </Link>
           </div>
         </div>
+        <Dropdown className="d-block d-md-none mx-3">
+          <Dropdown.Toggle variant="success" className="btn-dark">
+            <i className="fa-solid fa-bars"></i>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <Link className="nav-link" to="/">
+                {" "}
+                Home
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link className="nav-link" to="profile">
+                {" "}
+                Profile
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link className="nav-link" to="search">
+                {" "}
+                Search Breweries
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link className="nav-link" to="login" onClick={onClickLogout}>
+                {" "}
+                {!!profile ? "Logout" : "Login / Sign Up"}
+              </Link>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </div>
   );
