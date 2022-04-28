@@ -7,7 +7,7 @@ import { useProfile } from "../../hooks/useProfile.js";
 import { getBrewery } from "../../services/breweries-service.js";
 import { updateUser, getAllUsers } from "../../services/user-service.js";
 import UserCard from "../UserCard.js";
-
+import Maps from "../Map/Maps.js"
 const BookmarkContainer = styled.span`
   &:hover {
     cursor: pointer;
@@ -66,7 +66,9 @@ export default function BreweryDetailScreen() {
 
     await updateUser(newProfile);
   };
+  const makePos = () => {
 
+  }
   return (
     <div
       className="mt-3 p-3 bg-secondary rounded"
@@ -107,6 +109,7 @@ export default function BreweryDetailScreen() {
           ))}
         </>
       )}
+      <Maps uid={uid}/>
     </div>
   );
 }

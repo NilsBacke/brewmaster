@@ -20,7 +20,7 @@ const SubText = styled.div`
 export default function UserCard({ user }) {
   const profile = useProfile();
 
-  if (user._id === profile._id) {
+  if (profile && user._id === profile._id) {
     return <Container to="/profile">You</Container>;
   }
 
