@@ -26,7 +26,7 @@ const store = createStore(reducer);
 function App() {
   const bgImage = {
     backgroundImage: `url(${backgroundImage})`,
-    height: "100%",
+    height: '100%',
     "background-repeat": "repeat-x"
   };
   document.body.style = "background: black";

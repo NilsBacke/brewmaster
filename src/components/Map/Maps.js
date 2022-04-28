@@ -1,5 +1,5 @@
 import React,{ useEffect, useState }  from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import { getBrewery } from "../../services/breweries-service.js";
 
 const  Maps = ({uid}) => {
@@ -25,9 +25,8 @@ const  Maps = ({uid}) => {
   return (
      <>
      {!!hasPos && (
-       <LoadScript
-         googleMapsApiKey='AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE'>
           <GoogleMap
+            googleMapsApiKey='AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE'
             mapContainerStyle={mapStyles}
             zoom={15}
             center={pos}>
@@ -35,7 +34,7 @@ const  Maps = ({uid}) => {
                title= {brewery.name}
                position={pos}/>
           </GoogleMap>
-       </LoadScript>)
+       )
      }
      </>
   )
