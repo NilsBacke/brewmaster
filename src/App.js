@@ -35,7 +35,7 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <div style={bgImage}>
-          <div style={{ height: "auto"}} className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             <Routes>
               <Route path="/">
                 <Route index element={<HomeScreen />} />

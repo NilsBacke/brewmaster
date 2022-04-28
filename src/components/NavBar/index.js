@@ -22,7 +22,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar navbar-light bg-secondary navbar-fixed-top">
+    <div className="navbar navbar-light bg-secondary navbar-fixed-top" style={{"height":"60px"}}>
       <Link to="" className="navbar-brand ms-3">
         BrewMaster
       </Link>
