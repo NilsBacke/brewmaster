@@ -18,20 +18,16 @@ export default function CreateBrewery() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [size, setSize] = useState(window.innerWidth);
 
-
   useEffect(() => {
     if (profile && profile.type !== "BreweryOwner") {
       navigate("/profile");
     }
     window.addEventListener("resize", handleResize, false);
-
-  }, [profile]);
+  }, [profile, navigate]);
 
   const handleResize = () => {
-    setSize(
-      window.innerWidth
-    );
-  }
+    setSize(window.innerWidth);
+  };
 
   const disabled = !name || !street || !city || !state || !websiteUrl;
 
@@ -59,23 +55,19 @@ export default function CreateBrewery() {
     navigate("/profile");
   };
 
-  const lgStyle={
-    'width':'80%',
-    'color':'white',
-    "margin-top":'70px'
-
-  }
-  const smStyle={
-    'width':'100%',
-    'color':'white',
-    "margin-top":'70px'
-  }
-  const style = (size > 768)? lgStyle :smStyle;
+  const lgStyle = {
+    width: "80%",
+    color: "white",
+    "margin-top": "70px",
+  };
+  const smStyle = {
+    width: "100%",
+    color: "white",
+    "margin-top": "70px",
+  };
+  const style = size > 768 ? lgStyle : smStyle;
   return (
-    <div
-      className=" bg-secondary rounded p-4"
-      style={style}
-    >
+    <div className=" bg-secondary rounded p-4" style={style}>
       <h1>New Brewery</h1>
       <label htmlFor="name">Name</label>
       <input

@@ -7,7 +7,7 @@ import { useProfile } from "../../hooks/useProfile.js";
 import { getBrewery } from "../../services/breweries-service.js";
 import { updateUser, getAllUsers } from "../../services/user-service.js";
 import UserCard from "../UserCard.js";
-import Maps from "../Map/Maps.js"
+import Maps from "../Map/Maps.js";
 
 const BookmarkContainer = styled.span`
   &:hover {
@@ -25,10 +25,8 @@ export default function BreweryDetailScreen() {
   const navigate = useNavigate();
 
   const handleResize = () => {
-    setSize(
-      window.innerWidth
-    );
-  }
+    setSize(window.innerWidth);
+  };
 
   useEffect(() => {
     getBrewery(uid).then((res) => {
@@ -38,7 +36,7 @@ export default function BreweryDetailScreen() {
       setBookmarkedBy(res.filter((u) => u.bookmarkedBreweries?.includes(uid)));
     });
     window.addEventListener("resize", handleResize, false);
-  }, []);
+  }, [uid]);
 
   const bookmarked =
     !!profile &&
@@ -78,23 +76,21 @@ export default function BreweryDetailScreen() {
     await updateUser(newProfile);
   };
 
-  const lgStyle={
-    'width':'80%',
-    'color':'white',
-    'margin-top':'70px'
-  }
-  const smStyle={
-    'width':'100%',
-    'color':'white',
-    'margin-top':'70px'
-  }
-  const style = (size > 768)? lgStyle :smStyle;
+  const lgStyle = {
+    width: "80%",
+    color: "white",
+    "margin-top": "70px",
+  };
+  const smStyle = {
+    width: "100%",
+    color: "white",
+    "margin-top": "70px",
+  };
+  const style = size > 768 ? lgStyle : smStyle;
 
   return (
     <>
-      <div
-        className="p-3 bg-secondary rounded" style={style}
-      >
+      <div className="p-3 bg-secondary rounded" style={style}>
         {!!brewery && (
           <>
             <div className="h4">
@@ -120,6 +116,7 @@ export default function BreweryDetailScreen() {
               style={{ color: "lightblue" }}
               href={brewery.website_url}
               target="_blank"
+              rel="noreferrer"
             >
               {brewery.website_url}
             </a>
@@ -128,7 +125,7 @@ export default function BreweryDetailScreen() {
             {bookmarkedBy.map((u, i) => (
               <UserCard user={u} key={i} />
             ))}
-            <Maps uid={uid}/>
+            <Maps brewery={brewery} />
           </>
         )}
       </div>

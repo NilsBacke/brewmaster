@@ -1,41 +1,39 @@
-import React,{ useEffect, useState }  from 'react'
-import { GoogleMap, Marker } from '@react-google-maps/api';
-import { getBrewery } from "../../services/breweries-service.js";
+import React, { useEffect, useState } from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
-const  Maps = ({uid}) => {
+const Maps = ({ brewery }) => {
+  const [pos, setPos] = useState({ lat: null, lng: null });
+  const [hasPos, setHasPos] = useState(false);
 
-  const [brewery, setBrewery] = useState(undefined);
-  const [pos, setPos] = useState({'lat': null, 'lng':null})
-  const [hasPos, setHasPos] = useState(false)
+  console.log(brewery);
 
   useEffect(() => {
-      getBrewery(uid).then((res) => {
-        setBrewery(res);
-        if (res.latitude != null && res.longitude != null){
-          setHasPos(true);
-          setPos({'lat':parseFloat(res.latitude), 'lng': parseFloat(res.longitude)});
-        }
+    if (brewery && brewery.latitude != null && brewery.longitude != null) {
+      setHasPos(true);
+      setPos({
+        lat: parseFloat(brewery.latitude),
+        lng: parseFloat(brewery.longitude),
       });
-    }, []);
+    }
+  }, [brewery]);
 
   const mapStyles = {
     height: "30vh",
-    width: "100%"};
+    width: "100%",
+  };
 
   return (
-     <>
-     {!!hasPos && (
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={15}
-            center={pos}>
-              <Marker key={Math.random().toString()}
-               title= {brewery.name}
-               position={pos}/>
-          </GoogleMap>
-       )
-     }
-     </>
-  )
-}
+    <>
+      {!!hasPos && (
+        <GoogleMap mapContainerStyle={mapStyles} zoom={15} center={pos}>
+          <Marker
+            key={Math.random().toString()}
+            title={brewery.name}
+            position={pos}
+          />
+        </GoogleMap>
+      )}
+    </>
+  );
+};
 export default Maps;

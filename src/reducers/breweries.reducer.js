@@ -1,4 +1,4 @@
-import { CREATE_BREWERY, SEARCH_BREWERYS } from "../actions/breweries.actions";
+import { SEARCH_BREWERYS } from "../actions/breweries.actions";
 
 const breweriesReducer = (state = [], action) => {
   switch (action.type) {

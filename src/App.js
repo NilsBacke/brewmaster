@@ -14,9 +14,7 @@ import breweriesReducer from "./reducers/breweries.reducer.js";
 import profileReducer from "./reducers/profile.reducer.js";
 import { Provider } from "react-redux";
 import CreateBrewery from "./components/CreateBrewery.js/CreateBrewery";
-import Maps from "./components/Map/Maps.js"
-import { LoadScript } from '@react-google-maps/api';
-
+import { LoadScript } from "@react-google-maps/api";
 
 const reducer = combineReducers({
   breweries: breweriesReducer,
@@ -27,14 +25,13 @@ const store = createStore(reducer);
 function App() {
   const bgImage = {
     backgroundImage: `url(${backgroundImage})`,
-    height: '100%',
-    "background-repeat": "repeat-x"
+    height: "100%",
+    "background-repeat": "repeat-x",
   };
   document.body.style = "background: black";
   return (
     <Provider store={store}>
-      <LoadScript
-        googleMapsApiKey='AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE'>
+      <LoadScript googleMapsApiKey="AIzaSyCMhJsgxNrVxDBkPYv1yGQZack3EYGw-hE">
         <BrowserRouter>
           <NavBar />
           <div style={bgImage}>
@@ -44,7 +41,10 @@ function App() {
                   <Route index element={<HomeScreen />} />
                   <Route path="login" element={<LoginScreen />} />
                   <Route path="search" element={<SearchScreen />} />
-                  <Route path="details/:uid" element={<BreweryDetailScreen />} />
+                  <Route
+                    path="details/:uid"
+                    element={<BreweryDetailScreen />}
+                  />
                   <Route path="profile" element={<ProfileScreen />} />
                   <Route path="profile/:uid" element={<ProfileScreen />} />
                   <Route path="create-brewery" element={<CreateBrewery />} />
